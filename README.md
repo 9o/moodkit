@@ -1,0 +1,2 @@
+# moodkit
+### a Sails application
