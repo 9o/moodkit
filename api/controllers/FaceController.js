@@ -27,37 +27,40 @@ module.exports = {
   _config: {},
 
     show: function (req, res, next) {
-	User.find(function foundUsers (err, users) {
-  		if (err) return next(err);
-  		// pass the array fown to the /views/index.ejs page
-  		res.view({
-  			face: show
-  		});
-  	});
+	res.view('face/show');
 
   },
 
   create: function (req, res, next) {
 
-  	//create a user with the params sent from
+
+var request = require('request');
+request('http://api.skybiometry.com/fc/faces/detect.json?api_key=e4d4ec55fc2c437eb4af7bf22f701f27&api_secret=cc0a6e6c81ef41a290b2e93430df78fc&urls=http://tinyurl.com/673cksr&attributes=all', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body) // Print the google web page.
+  }
+})
+
+	res.view('face/create');
+
   	// the sign-up form --> new.ejs
-  	Face.create( req.params.all(), function userCreated (err, user) {
+  	// Face.create( req.params.all(), function userCreated (err, user) {
 
-  		// If there's an error
-  		// if (err) return next(err);
+  	// 	// If there's an error
+  	// 	// if (err) return next(err);
 
-  		if (err) {
-  			console.log(err);
+  	// 	if (err) {
+  	// 		console.log(err);
 
-	  		// If error redirect back to sign-up page
-	  		return res.redirect('/user/new');
-	  	}
+	  // 		// If error redirect back to sign-up page
+	  // 		return res.redirect('/user/new');
+	  // 	}
 
-  		// After successfully creating the user
-  		// redirect to the show action
-  		// res.json(user);
-  		res.redirect('/user/show/'+user.id);
-  	});
+  	// 	// After successfully creating the user
+  	// 	// redirect to the show action
+  	// 	// res.json(user);
+  	// 	res.redirect('/user/show/'+user.id);
+  	// });
   }
 
 
