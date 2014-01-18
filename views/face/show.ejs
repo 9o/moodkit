@@ -1,6 +1,7 @@
 <div id="conent_demo_image" style="width: 480px;">
 		</div>
 		<script type="text/javascript">
+		$( document ).ready(function() {
 			$(function() {
 				function drawFacesAddPoint(control, imgWidth, imgHeight, point, title) {
 					var x = Math.round(point.x * imgWidth / 100);
@@ -60,9 +61,10 @@
 				function callback(data) {
 					drawFaces($("#conent_demo_image"), data.photos[0], true);
 				}
-				var client = new FCClientJS(!!!REPLACE_WITH_YOUR_API_KEY!!!, !!!REPLACE_WITH_YOUR_API_SECRET!!!);
+				var client = new FCClientJS('e4d4ec55fc2c437eb4af7bf22f701f27', 'cc0a6e6c81ef41a290b2e93430df78fc');
 				var options = new Object();
 				options.detect_all_feature_points = true;
 				client.facesDetect("http://skybiometry.com/Content/Samples/one_i.jpg", null, options, callback)
 			});
+});
 		</script>
