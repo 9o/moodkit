@@ -44,7 +44,7 @@ module.exports = {
   upload: function (req, res) {
     var file = req.files.userPhoto,
     id = sid.generate(),
-    fileName = id + "." + fileExtension(safeFilename(file.name)),
+    fileName = id + "." + fileExtension(safeFilename('test')),
     dirPath = UPLOAD_PATH + '/' + id,
     filePath = dirPath + '/' + fileName;
 
@@ -54,14 +54,14 @@ module.exports = {
       console.log(e);
     }
 
-    fs.readFile(file.path, function (err, data) {
-      if (err) {
-        res.json({'error': 'could not read file'});
-      } else {
-        fs.writeFile(filePath, data, function (err) {
-          if (err) {
-            res.json({'error': 'could not write file to storage'});
-          } else {
+    // fs.readFile('/home/pi/Documents/'+ fileName, function (err, data) {
+    //   if (err) {
+    //     res.json({'error': 'could not read file'});
+    //   } else {
+    //     fs.writeFile('/home/pi/Documents/'+ fileName, data, function (err) {
+    //       if (err) {
+    //         res.json({'error': 'could not write file to storage'});
+    //       } else {
             processImage(id, fileName, filePath, function (err, data) {
               if (err) {
                 res.json(err);
@@ -69,10 +69,10 @@ module.exports = {
                 res.json(data);
               }
             });
-          }
-        })
-      }
-    });
+    //       }
+    //     })
+    //   }
+    // });
   },
   show: function (req, res, next) {
     // User.findOne( req.param('id'), function foundUser (err, user) {

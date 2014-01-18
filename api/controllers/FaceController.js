@@ -27,15 +27,39 @@ module.exports = {
   _config: {},
 
     show: function (req, res, next) {
-  	// User.findOne( req.param('id'), function foundUser (err, user) {
-  	// 	if (err) return next(err);
-  	// 	if (!user) return next();
-  		// res.view({
-  		// 	face: face
-  	// });
+	User.find(function foundUsers (err, users) {
+  		if (err) return next(err);
+  		// pass the array fown to the /views/index.ejs page
+  		res.view({
+  			face: show
+  		});
+  	});
 
-	res.view('face/show');
+  },
+
+  create: function (req, res, next) {
+
+  	//create a user with the params sent from
+  	// the sign-up form --> new.ejs
+  	Face.create( req.params.all(), function userCreated (err, user) {
+
+  		// If there's an error
+  		// if (err) return next(err);
+
+  		if (err) {
+  			console.log(err);
+
+	  		// If error redirect back to sign-up page
+	  		return res.redirect('/user/new');
+	  	}
+
+  		// After successfully creating the user
+  		// redirect to the show action
+  		// res.json(user);
+  		res.redirect('/user/show/'+user.id);
+  	});
   }
+
 
   
 };
