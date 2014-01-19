@@ -37,7 +37,11 @@ module.exports = {
 var request = require('request');
 request('http://api.skybiometry.com/fc/faces/detect.json?api_key=e4d4ec55fc2c437eb4af7bf22f701f27&api_secret=cc0a6e6c81ef41a290b2e93430df78fc&urls=http://tinyurl.com/673cksr&attributes=all', function (error, response, body) {
   if (!error && response.statusCode == 200) {
-    console.log(body) // Print the google web page.
+
+    var smile = new Array();
+    smile = JSON.parse(body).photos[0].tags[0].attributes.smiling['value'];
+    console.log(smile);
+
   }
 })
 
