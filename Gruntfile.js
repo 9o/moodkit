@@ -16,7 +16,21 @@
 
 module.exports = function (grunt) {
 
+  watch: {
+  api: {
 
+    // API files to watch:
+    files: ['api/**/*']
+  },
+  assets: {
+
+    // Assets to watch:
+    files: ['assets/**/*'],
+
+    // When assets are changed:
+    tasks: ['compileAssets', 'linkAssets']
+  }
+},
 
   /**
    * CSS files to inject in order

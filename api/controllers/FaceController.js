@@ -29,13 +29,21 @@ module.exports = {
     show: function (req, res, next) {
 	res.view('face/show');
 
+  res.send();
+
   },
 
   create: function (req, res, next) {
 
+var protocol = req.connection.encrypted?'https':'http';
+var baseUrl = protocol + '://' + req.headers.host + '/';
+
+var imgName = req.param('imgName');
+var onlineLink = baseUrl + 'linker/img/' + imgName;
+console.log(onlineLink);
 
 var request = require('request');
-request('http://api.skybiometry.com/fc/faces/detect.json?api_key=e4d4ec55fc2c437eb4af7bf22f701f27&api_secret=cc0a6e6c81ef41a290b2e93430df78fc&urls=http://tinyurl.com/673cksr&attributes=all', function (error, response, body) {
+request('http://api.skybiometry.com/fc/faces/detect.json?api_key=e4d4ec55fc2c437eb4af7bf22f701f27&api_secret=cc0a6e6c81ef41a290b2e93430df78fc&urls='+onlineLink+'&attributes=all', function (error, response, body) {
   if (!error && response.statusCode == 200) {
 
     var smile = new Array();
